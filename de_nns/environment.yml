@@ -1,0 +1,7 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - pip:
+    - mmh3
+    - torchvision

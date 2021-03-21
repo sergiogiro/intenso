@@ -1,0 +1,10 @@
+[packages]
+mlflow = "*"
+
+[dev-packages]
+jupyter = "*"
+matplotlib = "*"
+torch = "*"
+
+[requires]
+python_version = "3.8"

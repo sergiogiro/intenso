@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="12dc8f8e-53b4-429e-a69a-9c9fb1684f33" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/../../Pipfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Pipfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cli/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/../../cli/Pipfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cli/src/plz/cli/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../cli/src/plz/cli/configuration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cli/src/plz/cli/run_execution_operation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../cli/src/plz/cli/run_execution_operation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../data/mnist/processed/test.pt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../data/mnist/processed/training.pt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/DE NNs-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/DE NNs-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DE NNs.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/DE NNs.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plz.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/plz.Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../python/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pytorch/data_loading.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pytorch/data_loading.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pytorch/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../pytorch/environment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pytorch/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pytorch/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pytorch/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/../pytorch/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pytorch/plz.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pytorch/plz.cuda.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../pytorch/plz.cuda.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../services/controller/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../services/controller/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../services/controller/playbook.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../services/controller/playbook.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../services/controller/src/plz/controller/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../services/controller/src/plz/controller/configuration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../services/controller/src/plz/controller/images/ecr.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../services/controller/src/plz/controller/images/ecr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../services/controller/src/plz/controller/instances/aws/ec2_instance_group.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../services/controller/src/plz/controller/instances/aws/ec2_instance_group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../start/development" beforeDir="false" afterPath="$PROJECT_DIR$/../../start/development" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../start/localserver.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../../start/localserver.conf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1khkI8UrywvTeSnvgo48ARHXdoD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="12dc8f8e-53b4-429e-a69a-9c9fb1684f33" name="Default Changelist" comment="" />
+      <created>1606160127753</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606160127753</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="428" y="205" width="1022" height="737" key="SettingsEditor" timestamp="1606563950823">
+      <screen x="72" y="27" width="2488" height="1413" />
+    </state>
+    <state x="428" y="205" width="1022" height="737" key="SettingsEditor/72.27.2488.1413@72.27.2488.1413" timestamp="1606563950823" />
+    <state x="654" y="352" width="672" height="678" key="search.everywhere.popup" timestamp="1606334878683">
+      <screen x="72" y="27" width="2488" height="1413" />
+    </state>
+    <state x="654" y="352" width="672" height="678" key="search.everywhere.popup/72.27.2488.1413@72.27.2488.1413" timestamp="1606334878683" />
+  </component>
+</project>

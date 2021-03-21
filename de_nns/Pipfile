@@ -1,10 +1,10 @@
 [packages]
 mlflow = "*"
+torch = "~=1.7.0"
 
 [dev-packages]
 jupyter = "*"
 matplotlib = "*"
-torch = "*"
 
 [requires]
 python_version = "3.8"

@@ -104,7 +104,8 @@ def load_numpy_arrays(input_directory, kind):
         data_ips = np.load(f)
     return data, data_starts, data_ends, data_ys, data_ips
 
-
+# Tell the checker to make type variables from these variables
+# @#@dim_vars
 FINAL_TIME = 19
 OBSERVABLE_VARIABLES = 3
 NUM_SPARSE_VARS = 1
@@ -119,27 +120,61 @@ class NNModel(nn.Module):
 
     def __init__(self, device: str):
         super().__init__()
+        # Use @#@dim_exp to instruct the checker to create an expression.
+        # Expressions will be different from variables, in the sense that we'll use them
+        # when describing types (see below), but for the type system they are only an
+        # alias (so that we avoid rewriting the expression every time. Checking (and
+        # error messages) are expressed in terms of variables (like FINAL_TIME,
+        # OBSERVABLE_VARIABLES, etc defined above).
+        # @#@dim_exp
         input_dimension = (FINAL_TIME + 1) * (OBSERVABLE_VARIABLES + NUM_SPARSE_VARS)
+        # Somewhere we'll need to declare "axiomatically" (and it can be a common "library"
+        # that the checker uses, not for the "end user" to add everything himself), that
+        # the function nn.Linear returns a function taking a tensor of size input_dimension
+        # and returning another of size 2 * input_dimension .
+        # That is, the type of self.linear1 will be (input_dimension) => 2 * input_dimension
         self.linear1 = nn.Linear(input_dimension, input_dimension * 2)
+        # As above, self.relu1 Takes a vector of size N, returns a vector size N
         self.relu1 = nn.ReLU()
         self.linear2 = nn.Linear(input_dimension * 2, 100)
         self.relu2 = nn.ReLU()
+        # (This is dead code I had here, please ignore)
         # self.dropout = nn.Dropout(0.1)
+        # (End of code to ignore)
         self.linear3 = nn.Linear(100, OBSERVABLE_VARIABLES + NUM_SPARSE_VARS)
         self.optimizer = None
         self.device = device
 
+    # @#@ x: input_dimension
+    # @#@returns OBSERVABLE_VARIABLES + NUM_SPARSE_VARS
     def my_forward(self, x):
         x = x.to(self.device)
         x = x.float()
+        # We make an annotation for the new value of x
+        # For example: if this annotation was 3 * input_dimension there would be an
+        # error reported, because we've said self.linear1 returns 2 * input_dimension
+        # above. Note that we are using input_dimension as we "have put it in the type
+        # system" with the @#@dim_exp command above.
+        # @#@ 2 * input_dimension
         x = self.linear1(x)
+        # relu1 was of type N => N
+        # #@# 2 * input_dimension
         x = self.relu1(x)
+        # Please ignore comment in the next line, was here from before
         # x = self.dropout(x)
+        # #@# 100
         x = self.linear2(x)
+        # #@# 100
         x = self.relu2(x)
+        # pls ignore
         # x = self.dropout(x)
+        # #@# OBSERVABLE_VARIABLES + NUM_SPARSE_VARS
         return self.linear3(x)
 
+    # Express that the function takes something with an indeterminate number of
+    # dimensions and returns something with the same list
+    # @#@ array: (L := [...])
+    # @#@returns: L
     def to_tensor(self, array):
         """
         Make sure the array is a tensor usable for this model.
@@ -147,29 +182,56 @@ class NNModel(nn.Module):
         If necessary, move it to the right device and set precision to float
         """
         if not isinstance(array, torch.Tensor):
+            # @#@ L
             tensor = torch.Tensor(array)
         else:
+            # @#@ L
             tensor = array
         return tensor.to(self.device).float()
 
+    # @#@ timeline: input_dimension
+    # @#@returns OBSERVABLE_VARIABLES + NUM_SPARSE_VARS
     def __call__(self, timeline):
-        self.to_tensor(timeline)
+        # Oops, there was a bug here, it was missing the assignment
+        #@# input_dimension
+        timeline = self.to_tensor(timeline)
         return self.my_forward(timeline.view(-1))
 
-
-def euler(model, xs, start_tensor: torch.Tensor, time_tensor: torch.Tensor):
+# #########
+# This function is quite meaty, I found. Didn't remember the dimensions of things
+# here and I really learned from having to spell the dimensions out.
+# #########
+# xs is a tensor with 2 dimensions, of sizes FINAL_TIME and OBSERVABLE_VARIABLES
+# @#@ xs: [FINAL_TIME, OBSERVABLE_VARIABLES]
+# @#@ start_tensor: NUM_SPARSE_VARS
+# @#@ time_tensor: FINAL_TIME
+# Return a tensor with 2 dimensions
+# @#@returns [FINAL_TIME, NUM_SPARSE_VARS]
+def euler(model: NNModel, xs: torch.Tensor, start_tensor: torch.Tensor, time_tensor: torch.Tensor):
+    # @#@ [FINAL_TIME, OBSERVABLE_VARIABLES]
     xs = model.to_tensor(xs)
+    # @#@ [FINAL_TIME, OBSERVABLE_VARIABLES + NUM_SPARSE_VARS]
     timeline = torch.Tensor(xs.size()[0], xs.size()[1] + start_tensor.size()[0])
     timeline.fill_(-100)
+    # @#@ [FINAL_TIME, OBSERVABLE_VARIABLES + NUM_SPARSE_VARS]
     timeline = model.to_tensor(timeline)
+    # Checker should check that the result of cat is of size OBSERVABLE_VARIABLES + NUM_SPARSE_VARS,
+    # raise an error otherwise
     timeline[0][:] = torch.cat([xs[0], start_tensor])
+    # @#@ [FINAL_TIME, NUM_SPARSE_VARS]
     ys = model.to_tensor(torch.Tensor(xs.size()[0], start_tensor.size()[0]))
     ys[0][:] = start_tensor
     for i in range(1, xs.size()[0]):
         time_delta = (time_tensor[i] - time_tensor[i-1]).item()
+        # @#@ NUM_SPARSE_VARS
         y_prime = model(timeline.clone().detach())[:NUM_SPARSE_VARS]
         ys[i][:] = ys[i-1][:] + time_delta * y_prime
         timeline[i][:xs.size()[1]] = xs[i]
+        # ### EXAMPLE OF A TYPING ERROR
+        # If we had a copypaste error in the line below, and had xs[i] on the right-hand
+        # side, the checker would complain. The vector on the left-hand side has length
+        # NUM_SPARSE_VARS while the one on the right would have OBSERVED_VARS.
+        # This error wouldn't be caught until the program is run
         timeline[i][xs.size()[1]:] = ys[i]
     return ys
 
@@ -187,8 +249,11 @@ def forward(model, training_data, training_start, training_end, training_ys,
         model.optimizer.zero_grad()
     else:
         model.eval()
+    # @#@ FINAL_TIME
     time_tensor = model.to_tensor(np.linspace(0, FINAL_TIME, FINAL_TIME + 1))
+    # @#@ NUM_SPARSE_VARS
     start_tensor = model.to_tensor([training_start])
+    # @#@ [FINAL_TIME, NUM_SPARSE_VARS]
     ys = euler(model, training_data, start_tensor, time_tensor)
     loss = loss_func(model.to_tensor([training_end]), ys[-1])
     for p in training_ips:
